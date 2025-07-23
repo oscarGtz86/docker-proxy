@@ -1,12 +1,10 @@
 version: '3'
 services:
-  registry:
+  docker-cache:
     image: registry:2
     container_name: docker-cache
     ports:
-      - 5000:5000
-    environment:
-      REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
+      - "5000:5000"
     volumes:
       - ./registry-data:/var/lib/registry
-    restart: always
+    restart: unless-stopped
