@@ -35,9 +35,9 @@ This setup consists of two servers:
 
 ## 🚀 Features
 
-* ✅ Push your private or public (pre-pulled) images to the registry
-* ✅ Pull those images from offline hosts
-* ✅ Convenience scripts for caching and pulling images
+✅ Push your private or public (pre-pulled) images to the registry
+✅ Pull those images from offline hosts
+✅ Convenience scripts for caching and pulling images
 
 ---
 
