@@ -145,7 +145,7 @@ docker tag docker-proxy.local:5000/library/nginx:alpine nginx:alpine
 
 Two helper scripts are included in the `bin/` directory:
 
-* `cache_image.sh` — pulls an image from Docker Hub, tags it for the local registry and pushes it.
+* `cache_image.sh` — pulls an image from Docker Hub, tags it for the local registry, and pushes it.
 * `pull_image.sh` — pulls an image from the local registry and optionally retags it to the original name.
 
 Use these scripts on Host 1 and Host 2 respectively to simplify caching and pulling images.
