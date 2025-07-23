@@ -1,6 +1,6 @@
 # 🐳 Docker Proxy Registry
 
-This repository provides a simple writable Docker registry running on port 5000 to store and serve your own Docker images for use on hosts without internet access.
+This repository provides a writable Docker registry started with Docker Compose and running on port `5000`. It stores and serves Docker images for hosts that do not have internet access.
 
 ## 📋 Overview
 
@@ -35,8 +35,9 @@ This setup consists of two servers:
 
 ## 🚀 Features
 
-✅ Push your private or public (pre-pulled) images to the registry
-✅ Pull those images from offline hosts
+* ✅ Push your private or public (pre-pulled) images to the registry
+* ✅ Pull those images from offline hosts
+* ✅ Convenience scripts for caching and pulling images
 
 ---
 
@@ -58,6 +59,9 @@ docker compose up -d
 ```
 
 ✅ This runs `registry:2` as a writable registry on port `5000`.
+All registry data is stored in the `registry-data/` directory next to the
+compose file, so your images persist across restarts.
+
 
 #### 3️⃣ Pull the image you need from Docker Hub
 
@@ -137,16 +141,25 @@ docker tag docker-proxy.local:5000/library/nginx:alpine nginx:alpine
 * `docker-compose.yml` — single writable registry setup
 * `registry-data/` — persistent data volume for the registry
 
+## 🛠️ Scripts
+
+Two helper scripts are included in the `bin/` directory:
+
+* `cache_image.sh` — pulls an image from Docker Hub, tags it for the local registry and pushes it.
+* `pull_image.sh` — pulls an image from the local registry and optionally retags it to the original name.
+
+Use these scripts on Host 1 and Host 2 respectively to simplify caching and pulling images.
+Both scripts honor the `REGISTRY_HOST` environment variable if you use a
+different hostname or port for the registry.
+
 ---
 
 ## 🌟 Example Workflow
 
 ```bash
 # On Host 1
-docker pull nginx:alpine
-docker tag nginx:alpine docker-proxy.local:5000/library/nginx:alpine
-docker push docker-proxy.local:5000/library/nginx:alpine
+./bin/cache_image.sh nginx:alpine
 
 # On Host 2
-docker pull docker-proxy.local:5000/library/nginx:alpine
+./bin/pull_image.sh nginx:alpine --retag
 ```
