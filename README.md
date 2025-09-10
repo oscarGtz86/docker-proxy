@@ -168,3 +168,6 @@ different hostname or port for the registry.
 # On Host 1 (Optional)
 ./bin/clean_registry.sh
 ```
+
+## Author
+Oscar Gutierrez Escamilla
